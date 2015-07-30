@@ -64,13 +64,13 @@ s_n(v,w)
 &=&
 \begin{cases}
 1 & \mbox{if }
-N_{n-1}(w_0^{n-1}) \in \{ 2, 4, \ldots, C_{n-1} - 2\} \\
+N_{n-1}(w_0^{n-2}) \in \{ 2, 4, \ldots, C_{n-1} - 2\} \\
 &
-\land \, w_n - v_n \equiv N_{n-1}(w_0^{n-1}) \, (\mbox{mod } D_n), \\
+\land \, w_{n-1} - v_{n-1} \equiv N_{n-1}(w_0^{n-2}) \, (\mbox{mod } D_n), \\
 1 & \mbox{if }
-N_{n-1}(v_0^{n-1}) \in \{ 2, 4, \ldots, C_{n-1} - 2\} \\
+N_{n-1}(v_0^{n-2}) \in \{ 2, 4, \ldots, C_{n-1} - 2\} \\
 &
-\land \, v_n - w_n \equiv N_{n-1}(v_0^{n-1}) \, (\mbox{mod } D_n), \\
+\land \, v_{n-1} - w_{n-1} \equiv N_{n-1}(v_0^{n-2}) \, (\mbox{mod } D_n), \\
 0 & \mbox{otherwise}.
 \end{cases}
 \eeq
@@ -85,9 +85,9 @@ f_1(v,w)
 f_n(v,w)
 &=&
 \begin{cases}
-1 & \mbox{if } f_{n-1}(v_0^{n-1}, w_0^{n-1}) = 1 \\
+1 & \mbox{if } f_{n-1}(v_0^{n-2}, w_0^{n-2}) = 1 \\
 &
-\land \, (v_n = w_n
+\land \, (v_{n-1} = w_{n-1}
 \lor
 h_n(v, w) = 1
 \lor
