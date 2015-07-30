@@ -1,8 +1,17 @@
 \documentclass{article}
 
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{graphicx}
+
+\newcommand{\la}{\left\langle}
+\newcommand{\ra}{\right\rangle}
+\newcommand{\beq}{\begin{eqnarray}}
+\newcommand{\eeq}{\end{eqnarray}}
+
+\newcommand{\append}{\oplus}
 
 \title{DRAFT: A Family of Sparse, Vertex-Transitive Graphs}
 \author{Edward L. Platt}
@@ -12,7 +21,81 @@
 
 \maketitle
 
-TODO: write paper
+\section{Construction}
+
+We recursively construct a family of vertex-transitive graphs
+$G_n = \la V_n, E_n \ra$.
+The vertices $v \in V_n$ are labeled by an $n$-sequence of integers.
+We define the base case, $G_0$ as:
+\beq
+V_0 &=& \{\la \ra\}, \\
+E_0 &=& \{\}.
+\eeq
+We construct subsequent vertex sets from copies of the previous set,
+with each copy having a different integer appended to its vertex labels:
+\beq
+V_n &=& \bigcup_{k = 0}^{|V_{n-1}|}
+\left\{ v | w \in V_{n-1} \land v = w \append k \right\},
+\eeq
+where $w \append k$ denotes appending element $k$ to the end of sequence $w$.
+For convenience, we define
+\beq
+C_n &\equiv& |V_n|, \\
+D_n &\equiv& C_{n-1} + 1.
+\eeq
+We note that a one-to-one mapping exists between the vertices of $G_n$ and the
+integers from $0$ to $C_n - 1$:
+\beq
+N_n(v) = \sum_{k=0}^n C_k v_k.
+\eeq
+
+To construct the edges of $G_n$ we define an adjacency function $f_n(v,w)$
+that is equal to $1$ if $v$ and $w$ are connected and equal to $0$ otherwise.
+First, we define auxiliary functions:
+\beq
+h_n(v,w)
+&=&
+\begin{cases}
+1 & \mbox{if } N_n(v) - N_n(w) \equiv 1 (\mbox{mod } C_n), \\
+1 & \mbox{if } N_n(w) - N_n(v) \equiv 1 (\mbox{mod } C_n), \\
+0 & \mbox{otherwise}.
+\end{cases} \\
+s_n(v,w)
+&=&
+\begin{cases}
+1 & \mbox{if }
+N_{n-1}(w_0^{n-1}) \in \{ 2, 4, \ldots, C_{n-1} - 2\} \\
+&
+\land \, w_n - v_n \equiv N_{n-1}(w_0^{n-1}) \, (\mbox{mod } D_n), \\
+1 & \mbox{if }
+N_{n-1}(v_0^{n-1}) \in \{ 2, 4, \ldots, C_{n-1} - 2\} \\
+&
+\land \, v_n - w_n \equiv N_{n-1}(v_0^{n-1}) \, (\mbox{mod } D_n), \\
+0 & \mbox{otherwise}.
+\end{cases}
+\eeq
+We now proceed to define $f_n$ recursively:
+\beq
+f_1(v,w)
+&=&
+\begin{cases}
+0 & \mbox{if } v = w, \\
+1 & \mbox{otherwise}.
+\end{cases} \\
+f_n(v,w)
+&=&
+\begin{cases}
+1 & \mbox{if } f_{n-1}(v_0^{n-1}, w_0^{n-1}) = 1 \\
+&
+\land \, (v_n = w_n
+\lor
+h_n(v, w) = 1
+\lor
+s_n(v, w) = 1
+),\\
+0 & \mbox{otherwise}.
+\end{cases}
+\eeq
 
 \bibliographystyle{plain}
 \bibliography{vtgraph}
