@@ -11,7 +11,10 @@
 \newcommand{\beq}{\begin{eqnarray}}
 \newcommand{\eeq}{\end{eqnarray}}
 
-\newcommand{\append}{\oplus}
+\newcommand{\append}{\leftarrow{\mkern-18mu}{+}\:}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
 
 \title{DRAFT: A Family of Sparse, Vertex-Transitive Graphs}
 \author{Edward L. Platt}
@@ -34,6 +37,7 @@ E_0 &=& \{\}.
 We construct subsequent vertex sets from copies of the previous set,
 with each copy having a different integer appended to its vertex labels:
 \beq
+\label{eq:vn}
 V_n &=& \bigcup_{k = 0}^{|V_{n-1}|}
 \left\{ v | w \in V_{n-1} \land v = w \append k \right\},
 \eeq
@@ -53,24 +57,32 @@ To construct the edges of $G_n$ we define an adjacency function $f_n(v,w)$
 that is equal to $1$ if $v$ and $w$ are connected and equal to $0$ otherwise.
 First, we define auxiliary functions:
 \beq
+d_n(v,w)
+&=&
+(N_n(w) - N_n(v)) \ \mbox{mod } C_n,
+\\
 h_n(v,w)
 &=&
 \begin{cases}
-1 & \mbox{if } N_n(v) - N_n(w) \equiv 1 (\mbox{mod } C_n), \\
-1 & \mbox{if } N_n(w) - N_n(v) \equiv 1 (\mbox{mod } C_n), \\
+1 & \mbox{if }, v_{n-1} \neq w_{n-1} \land d_n(v,w) \in \{ 1, C_n - 1\}\\
 0 & \mbox{otherwise}.
-\end{cases} \\
+\end{cases}
+\\
 s_n(v,w)
 &=&
 \begin{cases}
 1 & \mbox{if }
-N_{n-1}(w_0^{n-2}) \in \{ 2, 4, \ldots, C_{n-1} - 2\} \\
+N_{n-1}(v_0^{n-2}) \in \{ 1, 3, \ldots, C_{n-1} - 3\} \\
 &
-\land \, w_{n-1} - v_{n-1} \equiv N_{n-1}(w_0^{n-2}) \, (\mbox{mod } D_n), \\
+\ \land \, d_{n-1}(v_0^{n-2}, w_0^{n-2}) = 1 \\
+&
+\ \land \, w_{n-1} - v_{n-1} \equiv N_{n-1}(v_0^{n-2}) + 1\, (\mbox{mod } D_n), \\
 1 & \mbox{if }
 N_{n-1}(v_0^{n-2}) \in \{ 2, 4, \ldots, C_{n-1} - 2\} \\
 &
-\land \, v_{n-1} - w_{n-1} \equiv N_{n-1}(v_0^{n-2}) \, (\mbox{mod } D_n), \\
+\ \land \, d_{n-1}(w_0^{n-2}, v_0^{n-2}) = 1 \\
+&
+\ \land \, v_{n-1} - w_{n-1} \equiv N_{n-1}(v_0^{n-2}) \, (\mbox{mod } D_n), \\
 0 & \mbox{otherwise}.
 \end{cases}
 \eeq
@@ -82,12 +94,13 @@ f_1(v,w)
 0 & \mbox{if } v = w, \\
 1 & \mbox{otherwise}.
 \end{cases} \\
+\label{eq:fn}
 f_n(v,w)
 &=&
 \begin{cases}
 1 & \mbox{if } f_{n-1}(v_0^{n-2}, w_0^{n-2}) = 1 \\
 &
-\land \, (v_{n-1} = w_{n-1}
+\ \land \, (v_{n-1} = w_{n-1}
 \lor
 h_n(v, w) = 1
 \lor
@@ -96,6 +109,70 @@ s_n(v, w) = 1
 0 & \mbox{otherwise}.
 \end{cases}
 \eeq
+The edges of $G_n$ are then:
+\beq
+E_n &=& \{\{ v, w \} | f_n(v,w) = 1 \}.
+\eeq
+
+\section{Properties of $G_n$}
+
+\begin{lemma}
+The graph $G_n$ is $n$-regular for all $n \geq 0$.
+\end{lemma}
+\begin{proof}
+We proceed using induction on $n$.
+The base case $G_0$ is trivially regular.
+For the inductive case, consider vertices $v$ and $w$.
+When $v_{n-1} = w_{n-1}$
+Equation \ref{eq:fn} reduces to $f_{n-1}(v_0^{n-2},w_0^{n-2})$.
+By assumption, $G_{n-1}$ is $(n-1)$-regular, contributing exactly
+$n-1$ edges to the degree of $v$.
+
+In the case that $v_{n-1} \neq w_{n-1}$ and
+$N_{n-1}(v_0^{n-2}) \in \{ 1, 2, \ldots, C_{n-1} - 3\}$,
+$h_n(v) = 0$ and $s_n(v) = 1$ if
+\beq
+w &=& v_0^{n-2} \append (v_{n-1} + N_{n-1}(v_0^{n-2}) + 1) \ \mbox{mod } D_n,
+\eeq
+adding another edge to $v$ for a total degree of $n$.
+The case for $v_{n-1} \neq w_{n-1}$ and
+$N_{n-1}(v_0^{n-2}) \in \{ 2, 4, \ldots, C_{n-1} -2 \}$ is analogous.
+
+In the remaining case, $v_{n-1} \neq w_{n-1}$ and
+$N_{n-1}(v_0^{n-2}) \not\in \{ 1, 3, \ldots, C_{n-1} - 2 \}$.
+For all such $v$, $s_n(v,w) = 0$, and
+there exists exactly one $w$ such that $h_n(v,w) = 1$, bringing the total
+degree of $v$ to $n$.
+As we have not placed any constraints on $v$, all vertices of
+$G_n$ have degree $n$.
+\end{proof}
+
+\begin{lemma}
+The number of vertices and edges of the graph $G_n$ are given by the recurrence
+relations:
+\beq
+C_0 = |V_0| &=& 1, \\
+\label{eq:cnrec}C_{n} = |V_{n}| &=& C_{n-1} (C_{n-1} + 1), \\
+|E_n| &=& \frac{n}{2} C_n.
+\eeq
+\end{lemma}
+\begin{proof}
+The vertex set of $G_n$ (Equation \ref{eq:vn}) is a union of
+$C_{n-1} + 1$ sets.
+The vertex labels within each set all end with the same element,
+and this element is unique to each set.
+The sets are thus disjoint.
+Each set contains $C_{n-1}$ elements, giving $C_{n-1}(C_{n-1} + 1)$
+elements.
+
+\end{proof}
+
+\begin{theorem}
+The graphs $G_n$ are vertex-transitive for all $n \geq 0$.
+\end{theorem}
+\begin{proof}
+Define $\phi$, show preserves edges.
+\end{proof}
 
 \bibliographystyle{plain}
 \bibliography{vtgraph}
