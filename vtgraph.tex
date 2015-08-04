@@ -32,8 +32,8 @@ $G_n = \la V_n, E_n \ra$.
 The vertices $v \in V_n$ are labeled by an $n$-sequence of integers.
 We define the base case, $G_1$ as:
 \beq
-V_0 &=& \{\la{0}\ra,\la{1}\ra\}, \\
-E_0 &=& \left\{\{\la{0}\ra,\la{1}\ra\}\right\}.
+V_1 &=& \{\la{0}\ra,\la{1}\ra\}, \\
+E_1 &=& \left\{\{\la{0}\ra,\la{1}\ra\}\right\}.
 \eeq
 We construct subsequent vertex sets from copies of the previous set,
 with each copy having a different integer appended to its vertex labels:
@@ -46,14 +46,25 @@ C_n &\equiv& |V_n|,
 \eeq
 where $w \append k$ denotes appending element $k$ to the end of sequence $w$.
 We note that a one-to-one mapping $z_n$ exists between the vertices of $G_n$ and the
-integers from $0$ to $C_n - 1$, and define a successor mapping $\psi_n$:
+integers from $0$ to $C_n - 1$:
 \beq
-z_n(v) &=& \sum_{k=0}^{n-1} C_k v_k,
+z_n(v) &=& \sum_{k=0}^{n-1} C_k v_k.
+\eeq
+We also define the following mappings on the vertices of $G_n$:
+\beq
+(\phi_n(v))_k
+&=&
+\begin{cases}
+v_k + 1 \mbox{ mod } (C_k + 1) & \mbox{if } k = n,
+\\
+v_k & \mbox{otherwise},
+\end{cases}
 \\
 (\psi_n(v))_k
 &=&
 \begin{cases}
-v_k + 1 \mbox{ mod } C_k & \mbox{if } \forall j < k \quad v_j = C_j \\
+v_k + 1 \mbox{ mod } (C_k + 1)
+& \mbox{if } k = 0 \lor \forall j < k: v_j = C_j, \\
 v_k & \mbox{otherwise}.
 \end{cases}
 \eeq
@@ -142,7 +153,7 @@ $\frac{n}{2}|V_n| = \frac{n}{2}C_n$ edges.
 The graphs $G_n$ are vertex-transitive for all $n \geq 0$.
 \end{theorem}
 \begin{proof}
-Define $\phi$, show preserves edges.
+Let $\phi_i(k)$ map the vertex $v$ 
 \end{proof}
 
 \bibliographystyle{plain}
