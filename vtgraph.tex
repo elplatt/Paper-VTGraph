@@ -117,6 +117,7 @@ E_n &=& \{\{ v, w \} | f_n(v,w) = 1 \}.
 \section{Properties of $G_n$}
 
 \begin{lemma}
+\label{lem:regular}
 The graph $G_n$ is $n$-regular for all $n \geq 0$.
 \end{lemma}
 \begin{proof}
@@ -164,7 +165,8 @@ and this element is unique to each set.
 The sets are thus disjoint.
 Each set contains $C_{n-1}$ elements, giving $C_{n-1}(C_{n-1} + 1)$
 elements.
-
+By Lemma \ref{lem:regular}, $G_n$ is $n$-regular and has
+$\frac{n}{2}|V_n| = \frac{n}{2}C_n$ edges.
 \end{proof}
 
 \begin{theorem}
