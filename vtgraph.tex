@@ -73,10 +73,11 @@ To construct the edges of $G_{n+1}$ we define a ``shortcut'' function $s_{n,j}(k
 with $j \in \{1, 3, \ldots, C_n - 1\}$ and $k \in \{0, 1, 2, \ldots, C_n\}$ which
 determines the interconnections between copies of $G_n$.
 \beq
+\label{eq:shortcut}
 s_{n}(j, k)
 &=&
 \begin{cases}
-k - 1 \ \mbox{mod } (C_n + 1)
+k + 1 \ \mbox{mod } (C_n + 1)
 &
 \mbox{if } j = C_n - 1
 \\
@@ -153,7 +154,6 @@ $\frac{n}{2}|V_n| = \frac{n}{2}C_n$ edges.
 The graphs $G_n$ are vertex-transitive for all $n \geq 0$.
 \end{theorem}
 \begin{proof}
-Let $\phi_i(k)$ map the vertex $v$ 
 \end{proof}
 
 \bibliographystyle{plain}
