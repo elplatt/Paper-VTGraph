@@ -52,25 +52,37 @@ integers from $0$ to $C_n - 1$:
 \beq
 z_n(v) &=& \sum_{k=0}^{n-1} C_k v_k.
 \eeq
+We define even and odd subsets of $V_n$:
+\beq
+A_n &=& \{ v | v \in V_n \land v_0 = 1 \}, \\
+B_n &=& \{ v | v \in V_n \land v_0 = 0 \}.
+\eeq
 We also define the following mappings on the vertices of $G_n$:
 \beq
-(\phi(v))_k
+(\phi_n(v))_i
 &=&
 \begin{cases}
-v_k + 1 \mbox{ mod } (C_k + 1) & \mbox{if } k = n,
+v_i + 1 \mbox{ mod } (C_i + 1) & \mbox{if } i = n,
 \\
-v_k & \mbox{otherwise},
+v_i & \mbox{otherwise},
 \end{cases}
 \\
-(\psi_n(v))_k
+(\psi_n(v))_i
 &=&
 \begin{cases}
-v_k + 1 \mbox{ mod } (C_k + 1)
-& \mbox{if } k = 0 \lor \forall j < k: v_j = C_j, \\
-v_k & \mbox{otherwise},
+v_i + 1 \mbox{ mod } (C_i + 1)
+& \mbox{if } i = 0 \lor \forall j < i: v_j = C_j, \\
+v_i & \mbox{otherwise},
+\end{cases}
+\\
+\theta_n(v)
+&=&
+\begin{cases}
+\psi_n(v) & \mbox{if } v \in A_n, \\
+\psi_n^{-1}(v) & \mbox{if } v \in B_n,
 \end{cases}
 \eeq
-with $k \leq n$.
+with $i \leq n$.
 
 To construct the edges of $G_{n+1}$ we define a ``shortcut'' function $s_n(j, k)$
 with $j \in \{0, 1, C_n - 1\}$ and $k \in \{0, 1, 2, \ldots, C_n\}$ which
@@ -88,7 +100,7 @@ k - 1 \ \mbox{mod } (C_n + 1)
 &
 \mbox{if } j = 0,
 \\
-j + k + 1 \ \mbox{mod } (C_n + 1)
+k + j + 1 \ \mbox{mod } (C_n + 1)
 &
 \mbox{if } j \in \{1, 3, \ldots, C_n - 3\},
 \\
@@ -115,21 +127,22 @@ R_{n+1}
 S_{n+1}
 &=&
 \bigcup_{k=0}^{C_n}
-\bigcup_{v \in A_n} \{ v \append k, \psi_n(v) \append s_n(z_n(v), k) \},
+\bigcup_{v \in A_n} \{ v \append k, \theta_n(v) \append s_n(z_n(v), k) \},
 \\
 &=&
 \bigcup_{k=0}^{C_n}
-\bigcup_{v \in B_n} \{ v \append k, \psi_n^{-1}(v) \append s_n(z_n(v), k) \},
+\bigcup_{v \in B_n} \{ v \append k, \theta_n(v) \append s_n(z_n(v), k) \},
 \\
 E_{n+1}
 &=&
 R_{n+1} \cup S_{n+1},
 \eeq
-where $A_n$ and $B_n$ are the sets of odd and even vertices in $V_n$,
-respectively.
-Eq. \ref{eq:edgesrecursive} replicates the edges of
-$G_n$ among subsets of the vertices,
-while Eq. \ref{eq:edgesshortcut} creates one edge between each pair of the subsets.
+noting that $S_{n+1}$ can be written in terms of either the odd vertices $A_n$
+or the even vertices $B_n$.
+Eq. (\ref{eq:edgesrecursive}) replicates the edges of
+$G_n$ among subsets of the vertices of $G_{n+1}$,
+while Eq. (\ref{eq:edgesshortcut})
+creates one edge between each pair of the subsets.
 
 \section{Properties of $G_n$}
 
@@ -141,13 +154,13 @@ The graph $G_n$ is $n$-regular for all $n \geq 0$.
 We proceed using induction on $n$.
 The base case $G_1$ is $1$-regular by inspection.
 In the inductive case $G_{n+1}$
-the Eq. \ref{eq:edgesrecursive}
+Eq. (\ref{eq:edgesrecursive})
 reproduces the edges of $G_n$,
 which is $n$-regular by induction,
 contributing $n$ to the degree of each vertex.
-Eq. \ref{eq:edgesshortcut} adds one to the degree of each odd vertex.
-As $\psi_n$ is a bijective map between odd and even vertices,
-Eq. \ref{eq:edgesshortcut} also adds one to the degree of each even vertex,
+Eq. (\ref{eq:edgesshortcut}) adds one to the degree of each odd vertex.
+As $\theta_n$ is a bijective map between odd and even vertices,
+Eq. (\ref{eq:edgesshortcut}) also adds one to the degree of each even vertex,
 giving a total degree of $n + 1$.
 \end{proof}
 
@@ -161,7 +174,7 @@ C_0 = |V_0| &=& 1, \\
 \eeq
 \end{lemma}
 \begin{proof}
-The vertex set of $G_n$ (Eq. \ref{eq:vn}) is a union of
+The vertex set of $G_n$, given by Eq. (\ref{eq:vn}), is a union of
 $C_{n-1} + 1$ sets.
 The vertex labels within each set all end with the same element,
 and this element is unique to each set.
@@ -178,11 +191,30 @@ The graphs $G_n$ are vertex-transitive for all $n \geq 0$.
 We begin by showing that $\phi_{n-1}$ is an automorphism of $G_n$.
 Let $v$ be a vertex in $V_n$.
 $\phi_{n-1}$ has no effect on $v_0^{n-2}$ so it preserves the edges defined
-in Eq. \ref{eq:edgesrecursive}.
-The vertex $\phi_{n-1}(v)$ has exactly one other edge, connecting it to:
+in Eq. (\ref{eq:edgesrecursive}).
+The vertex $v$ has exactly one other edge:
 \beq
-&& \psi_{n-2}(v_0^{n-2}) \append s_n(z_n(v_0^{n-2}), v_{n-1} + 1), \\
+e &=& \{ v, \theta_n(v_0^{n-2} \append s_n(z_n(v_0^{n-2}), v_{n-1}) \}.
 \eeq
+Applying $\phi_{n-1}$ to both vertices gives:
+\beq
+\tilde{e} &=&
+\{ v_0^{n-2} \append (v_{n-1} + 1) \mbox{ mod } (C_{n-2} + 1), \\
+&& \quad \theta_n(v_0^{n-2} \append
+s_n(z_n(v_0^{n-2}), (v_{n-1} + 1) \mbox{ mod } (C_{n-2} + 1) ) \},
+\\
+&=&
+\{ v_0^{n-2} \append \tilde{k} \ \mbox{ mod } (C_{n-2} + 1),
+\theta_n(v_0^{n-2} \append s_n(z_n(v_0^{n-2}), \tilde{k}) \},
+\eeq
+where $\tilde{k} = (v_{n-1} + 1) \mbox{ mod } (C_{n-2} + 1)$.
+The edge $\tilde{e}$ is also a member of $S_n$ in Eq. (\ref{eq:edgesshortcut}),
+showing that $\phi_{n-1}$ permutes the elements of $S_n$, and preserves all
+edges in $E_n$.
+
+TODO: show that $\phi_{n-k}$ when combined with a permutation $\pi_{n,k}$
+preserves edges. Use $\phi$ to construct an automorphism mapping any $v$ to
+any $w$.
 \end{proof}
 
 \bibliographystyle{plain}
