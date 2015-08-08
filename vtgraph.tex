@@ -50,7 +50,7 @@ where $w \append k$ denotes appending element $k$ to the end of sequence $w$.
 We note that a one-to-one mapping $z_n$ exists between the vertices of $G_n$ and the
 integers from $0$ to $C_n - 1$:
 \beq
-z_n(v) &=& \sum_{k=0}^{n-1} C_k v_k.
+z_n(v) &=& \sum_{i=0}^{n-1} C_i v_i.
 \eeq
 We define even and odd subsets of $V_n$:
 \beq
@@ -82,7 +82,7 @@ v_i & \mbox{otherwise},
 \psi_n^{-1}(v) & \mbox{if } v \in B_n,
 \end{cases}
 \eeq
-with $i \leq n$.
+with $i < n$.
 
 To construct the edges of $G_{n+1}$ we define a ``shortcut'' function $s_n(j, k)$
 with $j \in \{0, 1, C_n - 1\}$ and $k \in \{0, 1, 2, \ldots, C_n\}$ which
@@ -109,11 +109,11 @@ k - j \ \mbox{mod } (C_n + 1)
 \mbox{if } j \in \{2, 4, \ldots, C_n - 2\}.
 \end{cases}
 \eeq
-We also define a parity selector function on edges $e \in E_n$:
+We also define a parity selector function on the edges $e \in E_n$:
 \beq
-p_i(e)
+p_x(e)
 &=&
-v \quad \mbox{s.t. } v \in e \land v_0 = i.
+v \quad \mbox{s.t. } v \in e \land v_0 = x.
 \eeq
 The edges of $G_{n+1}$ are then given by:
 \beq
@@ -153,7 +153,7 @@ The graph $G_n$ is $n$-regular for all $n \geq 0$.
 \begin{proof}
 We proceed using induction on $n$.
 The base case $G_1$ is $1$-regular by inspection.
-In the inductive case $G_{n+1}$
+In the inductive case $G_{n+1}$,
 Eq. (\ref{eq:edgesrecursive})
 reproduces the edges of $G_n$,
 which is $n$-regular by induction,
@@ -190,9 +190,10 @@ The graphs $G_n$ are vertex-transitive for all $n \geq 0$.
 \begin{proof}
 We begin by showing that $\phi_{n-1}$ is an automorphism of $G_n$.
 Let $v$ be a vertex in $V_n$.
-$\phi_{n-1}$ has no effect on $v_0^{n-2}$ so it preserves the edges defined
-in Eq. (\ref{eq:edgesrecursive}).
-The vertex $v$ has exactly one other edge:
+$\phi_{n-1}$ has no effect on $v_0^{n-2}$ so it preserves the edges $R_n$,
+defined in Eq. (\ref{eq:edgesrecursive}).
+The vertex $v$ has exactly one other edge, from $S_n$ defined in
+Eq. (\ref{eq:edgesshortcut}):
 \beq
 e &=& \{ v, \theta_n(v_0^{n-2} \append s_n(z_n(v_0^{n-2}), v_{n-1}) \}.
 \eeq
@@ -208,9 +209,9 @@ s_n(z_n(v_0^{n-2}), (v_{n-1} + 1) \mbox{ mod } (C_{n-2} + 1) ) \},
 \theta_n(v_0^{n-2} \append s_n(z_n(v_0^{n-2}), \tilde{k}) \},
 \eeq
 where $\tilde{k} = (v_{n-1} + 1) \mbox{ mod } (C_{n-2} + 1)$.
-The edge $\tilde{e}$ is also a member of $S_n$ in Eq. (\ref{eq:edgesshortcut}),
-showing that $\phi_{n-1}$ permutes the elements of $S_n$, and preserves all
-edges in $E_n$.
+The edge $\tilde{e}$ is also a member of $S_n$,
+showing that $\phi_{n-1}$ permutes the elements of $S_n$,
+and preserves all edges in $E_n$.
 
 TODO: show that $\phi_{n-k}$ when combined with a permutation $\pi_{n,k}$
 preserves edges. Use $\phi$ to construct an automorphism mapping any $v$ to
