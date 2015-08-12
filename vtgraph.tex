@@ -184,11 +184,11 @@ elements.
 By Lemma \ref{lem:regular}, $G_n$ is $n$-regular and has
 $\frac{n}{2}|V_n| = \frac{n}{2}C_n$ edges.
 \end{proof}
-\begin{theorem}
-The graphs $G_n$ are vertex-transitive for all $n \geq 0$.
-\end{theorem}
+\begin{lemma}
+\label{lem:phiauto}
+The mapping $\phi_{n-1}$ is an automorphism of $G_n$.
+\end{lemma}
 \begin{proof}
-We begin by showing that $\phi_{n-1}$ is an automorphism of $G_n$.
 Let $v$ be a vertex in $V_n$.
 $\phi_{n-1}$ has no effect on $v_0^{n-2}$ so it preserves the edges $R_n$,
 defined in Eq. (\ref{eq:edgesrecursive}).
@@ -212,12 +212,73 @@ where $\tilde{k} = (v_{n-1} + 1) \mbox{ mod } (C_{n-2} + 1)$.
 The edge $\tilde{e}$ is also a member of $S_n$,
 showing that $\phi_{n-1}$ permutes the elements of $S_n$,
 and preserves all edges in $E_n$.
-
-TODO: show that $\phi_{n-k}$ when combined with a permutation $\pi_{n,k}$
-preserves edges. Use $\phi$ to construct an automorphism mapping any $v$ to
-any $w$.
 \end{proof}
-
+\begin{theorem}
+The graphs $G_n$ are vertex-transitive for all $n \geq 0$.
+\end{theorem}
+\begin{proof}
+The graph $G_0$ is trivially vertex-transitive.
+For higher order graphs,
+we recursively construct a mapping $\Phi_n$
+that maps an arbitrary vertex $v \in V_n$ to
+an arbitrary vertex $\tilde{v} \in V_n$ and preserves the edges in $E_n$.
+Let $\delta_i = \tilde{v}_i - v_i \mbox{ mod } (C_i + 1)$.
+For the subsequence $v_0^0$, the map $\Phi_1 = \phi_0^{\delta_0}$
+achieves the desired mapping and preserves the edges in $E_1$ by
+Lemma \ref{lem:phiauto}.
+Given an edge-preserving mapping $\Phi_n$
+from $v_0^{n-1}$ to $\tilde{v}_0^{n-1}$,
+we can construct $\tau_{n}$.
+We define mappings $\pi_n$ and $\tau_{n}$:
+\beq
+\pi_n(0) &=& 0
+\\
+\pi_n(s_n(v_0^{n-1}, 0))
+&=& s_n(\Phi_n(v_0^{n-1}), 0)
+\\
+\tau_{n}(v)
+&=& \Phi_{n}(v_0^{n-1}) \append \pi_n(v_n).
+\eeq
+For the recursive edges defined in Eq. (\ref{eq:edgesrecursive})
+$\{v_0^n, w_0^n\} \in R_{n+1}$:
+\beq
+\{ \tau_{n}(v_0^n), \tau_{n}(v_0^n)
+&=&
+\{ \Phi_n(v_0^n) \append \pi_n(k), \Phi_n(w_0^n) \append \pi_n(k)\}
+\\ &=&
+\{ \tilde{v}_0^n \append \tilde{k}, \Phi_n(\tilde{w}_0^n) \append \tilde{k}\},
+\eeq
+which is simply another member of $R_{n+1}$.
+As $\tau_{n}$ is bijective, it permutes the edges of $R_{n+1}$.
+For the shortcut edges defined in Eq. (\ref{eq:edgesshortcut})
+$\{v_0^n, w_0^n\} \in S_{n+1}$, when $v_n=0$:
+\beq
+\{\tau_{n}(v_0^n), \tau_{n}(w_0^n)\}
+&=&
+\{ \Phi_n(v_0^n) \append \pi_n(0),
+\\ &&
+\quad \Phi_n(w_0^n)) \append \pi_n(s_n(z_n(v_0^n), 0)) \}
+\\ &=&
+\{ \tilde{v}_0^n \append 0,
+\tilde{w}_0^n \append s_n(z_n(\Phi_n(v_0^n)), 0) \}
+\\ &=&
+\{ \tilde{v}_0^n \append 0,
+\theta_n(\tilde{v}_0^n) \append s_n(z_n(\tilde{v_0^n}), 0) \},
+\eeq
+showing that $\tau_{n}$ permutes the subset of edges in $S_{n+1}$ for which
+$v_n=0$.
+Consequently, because $\phi_n$ is an automorphism of $G_{n+1}$
+by Lemma \ref{lem:phiauto}, $\tau_{n}$ also permutes the edges of the
+subsets for which $(\phi_n^{-k}(v_0^n)_n=0$.
+Those edges are the subset of $S_{n+1}$ for which $v_n=k$,
+showing that $\Phi_n{n+1}$ permutes all edges within $S_{n+1}$ and
+$E_{n+1}$.
+We finish by applying the automorphism $\phi_n^{\delta_n}$:
+\beq
+\Phi_{n+1}(v) &=& \phi_n^{\delta_n}(\tau_{n}(v)),
+\eeq
+completing the mapping from $\tilde{v}$ to $\tilde{w}$.
+\end{proof}
 \bibliographystyle{plain}
 \bibliography{vtgraph}
 
