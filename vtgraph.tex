@@ -73,10 +73,10 @@ B_n &=& \{ v | v \in V_n \land v_0 = 0 \}.
 \eeq
 We also define the following mappings on the vertices of $G_n$:
 \beq
-(\phi_n(v))_i
+(\phi_k(v))_i
 &=&
 \begin{cases}
-v_i + 1 \mbox{ mod } (C_i + 1) & \mbox{if } i = n,
+v_i + 1 \mbox{ mod } (C_i + 1) & \mbox{if } i = k,
 \\
 v_i & \mbox{otherwise},
 \end{cases}
@@ -96,7 +96,7 @@ v_i & \mbox{otherwise},
 \psi_n^{-1}(v) & \mbox{if } v \in B_n,
 \end{cases}
 \eeq
-with $i < n$.
+with $i, k < n$.
 
 To construct the edges of $G_{n+1}$ we define a ``shortcut'' function $s_n(j, k)$
 with $j \in \{0, 1, C_n - 1\}$ and $k \in \{0, 1, 2, \ldots, C_n\}$ which
@@ -293,6 +293,9 @@ We finish by applying the automorphism $\phi_n^{\delta_n}$:
 \eeq
 completing the mapping from $\tilde{v}$ to $\tilde{w}$.
 \end{proof}
+\section{Acknowledgements}
+% Joe Nievelt
+% Aram Harrow
 \bibliographystyle{plain}
 \bibliography{vtgraph}
 
