@@ -13,7 +13,7 @@ However, trees impose a hierarchical relationship between agents.
 In some applications, an egalitarian relationship between agents is desirable,
 formally described as vertex transitivity.
 In this paper we construct an infinite family G_n
-of sparse (|E| = O(|V|log(\log |V|)),
+of sparse (|E| = O(|V|log(log |V|)),
 small-diameter (d = O(log |V|)), vertex-transitive graphs.
 
 ## Online demo
