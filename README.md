@@ -16,5 +16,6 @@ In this paper we construct an infinite family G_n
 of sparse (|E| = O(|V|log(log |V|)),
 small-diameter (d = O(log |V|)), vertex-transitive graphs.
 
-## Online demo
-[http://jsfiddle.net/7n9scynb/](http://jsfiddle.net/7n9scynb/)
+## Online demos
+* [animation](http://jsfiddle.net/gwhnhLn3/1)
+* [network generator](http://jsfiddle.net/7n9scynb/)
