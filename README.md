@@ -18,4 +18,4 @@ small-diameter (d = O(log |V|)), vertex-transitive graphs.
 
 ## Online demos
 * [animation](http://jsfiddle.net/gwhnhLn3/)
-* [network generator](http://jsfiddle.net/qtwyLhvg/)
+* [network generator](http://jsfiddle.net/93qm98j2/)
