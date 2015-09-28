@@ -1,0 +1,29 @@
+
+Introduction
+	Contributions
+		New overlay network
+		New graph family
+	Overlay networks
+		Chord, Viceroy
+		Routing state
+		Lookup cost
+		Join/leave cost
+		Randomized vs. deterministic constructions
+		Fault tolerance
+	Hypercubic architectures
+	Small-world networks
+Network structure
+	Ideal
+	Partial
+Key Lookup
+Join and Leave
+Discussion
+	Comparison to existing networks
+	Summary of network/algorithm properties
+Future work
+	Parallel/quantum computing
+	Decentralized organizations
+Conclusion
+Appendix
+	Formal construction
+	Proof of vertex transitivity
