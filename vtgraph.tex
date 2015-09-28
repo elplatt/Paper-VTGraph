@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[twocolumn]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -25,19 +25,19 @@
 
 \maketitle
 
-\section{Motivation}
-In networks modeling interactions between agents (e.g. people, computers),
-the agents often have a limited capacity to form interactions.
-If the vertex degrees grow with the size of the network,
-the number of interactions will exceed the capacity of the agents,
-limiting the scale of the network.
-Sparse networks, such as regular trees, are not subject to this limitation on scaling.
-However, trees impose a hierarchical relationship between agents.
-In some applications, an egalitarian relationship between agents is desirable,
-formally described as vertex transitivity.
-In this paper we construct an infinite family $G_n$
-of sparse ($|E| = O(|V|\log(\log |V|))$,
-small-diameter ($d = O(\log |V|)$), vertex-transitive graphs.
+\section{Introduction}
+
+\section{Network Structure}
+\begin{figure}
+\begin{center}
+\includegraphics{g123}
+\caption{
+\label{fig:g123}
+}
+\end{center}
+\end{figure}
+
+\subsection{Partial network approximation}
 
 \section{Construction}
 
@@ -294,11 +294,11 @@ We finish by applying the automorphism $\phi_n^{\delta_n}$:
 completing the mapping from $\tilde{v}$ to $\tilde{w}$.
 \end{proof}
 \section{Acknowledgements}
-% Joe Nievelt
-% Aram Harrow
 % Tony Garnock-Jones
 % Cesar Hidalgo
 % Grant Schoenebeck
+% Aram Harrow
+% Joe Nievelt
 \section{To Do}
 \begin{enumerate}
 \item{Change Eq. (\ref{eq:shortcut}) to $C_n - j + k \ (\mbox{mod } C_n + 1)$ to reduce cases.}
