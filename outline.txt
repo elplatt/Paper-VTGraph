@@ -1,29 +1,28 @@
 
 Introduction
 	Contributions
-		New overlay network
-		New graph family
-	Overlay networks
-		Chord, Viceroy
-		Routing state
-		Lookup cost
-		Join/leave cost
-		Randomized vs. deterministic constructions
-		Fault tolerance
-	Hypercubic architectures
-	Small-world networks
+		Consensus algorithm
+		Graph family
+	Implications
+	Related work
+		Consensus protocols
+		Overlay networks
+		Small-world networks
+		Hypercubic networks (butterfly, etc.)
+Consensus problem
 Network structure
-	Ideal
-	Partial
-Key Lookup
-Join and Leave
+	Overview
+	Formal construction
+	Graph properties
+Consensus algorithm
+	Peer assignment
+	Negotiation
+	Synthesis
+	Discussion
 Discussion
 	Comparison to existing networks
-	Summary of network/algorithm properties
-Future work
-	Parallel/quantum computing
-	Decentralized organizations
+	Future work
+		Decentralized organizations
+		Privacy via distributed secrets
+		Parallel/quantum computing
 Conclusion
-Appendix
-	Formal construction
-	Proof of vertex transitivity
