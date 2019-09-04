@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\newtheorem{lemma}{Lemma}
+
+\newtheorem{corollary}{Corollary}
+
+\title{A Family of Vertex Transitive Graphs}
+\author{Edward L. Platt}
+
+\begin{document}
+
+\maketitle
+
+\section{Sylvester Number System}
+
+Let $s_n$ be the $n$th element of Sylvester's sequence \cite{sylvester1880point}, defined as:
+
+\begin{eqnarray}
+s_0 &=& 2 \\
+s_{n + 1} &=& 1 + \prod_{i=0}^n s_n. \label{eq:sn}
+\end{eqnarray}
+
+A mixed-base number system can be constructed from Sylvester's sequence as follows:
+\begin{definition}
+A {\em Sylvester-radix} number $a$ is a sequence of digits $a_n$ such that: $a_n \in \mathbb{Z} : 0 \le a_n < s_n$.
+\end{definition}
+
+\begin{lemma}
+There are $(s_n - 1)$ Sylvester-radix numbers of length $n$.
+\end{lemma}
+
+\begin{proof}
+The Sylvester-radix numbers of length 1 are $(0)$ and $(1)$. $(s_1 - 1) = 2$ so the lemma holds for $n=1$.
+
+For $n > 1$, there are $s_i$ possible values for each digit, with $0 \le i < n$. The number of valid digit combinations is thus given by:
+\begin{equation*}
+\prod_{i=0}^{n-1} s_i = s_n - 1 \qquad \text{(by \eqref{eq:sn})}.
+\end{equation*}
+\end{proof}
+
+\begin{corollary}
+The place value of index $i$ in a Sylvester-radix number is $(s_i - 1)$.
+\end{corollary}
+
+The integer value of a length-$n$ Sylvester-radix number $a$ is thus:
+\begin{equation}
+z(a) = \sum_{i=0}^{n-1} a_i (s_i - 1).
+\end{equation}
+
+\bibliographystyle{plain}
+\bibliography{paper}
+
+\end{document}
