@@ -1,16 +1,22 @@
 \documentclass{article}
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{relsize}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
 \newtheorem{lemma}{Lemma}
-
 \newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}
+
+\DeclareMathOperator{\append}{\text{«}}
 
 \title{A Family of Vertex Transitive Graphs}
 \author{Edward L. Platt}
@@ -54,6 +60,66 @@ The integer value of a length-$n$ Sylvester-radix number $a$ is thus:
 \begin{equation}
 z(a) = \sum_{i=0}^{n-1} a_i (s_i - 1).
 \end{equation}
+
+\section{Nested Clique}
+
+We now define a family of graphs, which we call {\em nested cliques}. For $n > 0$, the nested clique $G_n$ is defined recursively in terms of $G_{n-1}$. We will construct $G_n$ from a union of subgraphs, each of which is isomorphic to $G_{n-1}$. Lower-order graphs are thus recursively {\em nested} within higher-order graphs. In addition to the edges internal to each subgraph, we will add one {\em external edge} to each vertex of $G_n$, such that each pair of subgraphs is connected by exactly one directed edge in each direction, making $G_n$ homomorphic to a clique.
+
+\begin{definition} \label{def:nk}
+A {nested clique sequence} is a sequence of graphs $G_n = (V_n, E_n)$ such that $G_n$ is a union of disjoint subgraphs isomorphic to $G_{n-1}$ and of a set of edges connecting each vertex in $V_n$ to another vertex belonging to a different subgraph.
+\end{definition}
+
+The above definition implies the following useful lemma.
+\begin{lemma}
+The number of vertices $N_n = |V_n|$ in a nested clique sequence is given by the recurrence relation:
+\begin{equation}\label{eq:nn}
+N_n = N_{n-1}(N_{n-1} + 1).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+TODO
+\end{proof}
+
+\subsection{Construction}
+We now construct a particular family of graphs satisfying the requirements of Definition \ref{def:nk}.
+
+\subsubsection{Base Case}
+
+We choose a base case containing a single vertex, which we label $\varnothing$:
+\begin{eqnarray}
+G_0 &=& (V_0, E_0) \\
+V_0 &=& \{ \varnothing \} \\
+E_0 &=& \{\}.
+\end{eqnarray}
+
+\begin{lemma}
+Whith the above base case $G_0$, the number of vertices in $G_n$ is given by:
+\begin{eqnarray}
+N_n &=& 1, 2, 6, 42, 1806, ...
+\end{eqnarray}
+\end{lemma}
+
+\subsubsection{Vertices}
+
+For the recursive case, it is necessary to distinguish between vertices in different nested subgraphs. Each vertex is labeled by a sequence of integers. For $G_n$ each subgraph is assigned an integer in $[0, N_{n-1}]$. For all vertices in a particular subgraph, labels are constructed by taking the corresponding label in $G_{n-1}$ and appending the subgraph's integer label. Formally:
+\begin{equation}
+V_n =
+\bigcup_{i = 0}^{N_{n-1}}
+\{ v \append i | v \in V_{n-1} \},
+\end{equation}
+where $a \append b$ denotes appending element $b$ to the end of sequence $a$. The vertices of $G_n$ are thus integer sequences of length $n$, with the $i$th digit in $[0, N_{n-1}]$. This set of labels is exactly the set of length-$n$ Sylvester-radix numbers.
+
+\begin{theorem}
+The vertices of a nested clique $G_n$ having $V_0 = \{ \varnothing \}$ are isomorphic to length-$n$ Sylester-radix numbers.
+\end{theorem}
+
+\begin{proof}
+TODO
+\end{proof}
+
+\subsubsection{Edges}
+It is not obvious whether any configuration of edges can satisfy Definition \ref{def:nk}. We now construct a set of operators which map source vertices to target vertices in a manner satisfying \ref{def:nk}.
 
 \bibliographystyle{plain}
 \bibliography{paper}
