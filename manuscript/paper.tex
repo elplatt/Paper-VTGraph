@@ -16,6 +16,7 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem{theorem}{Theorem}
 
+\DeclareMathOperator{\concat}{\parallel}
 \DeclareMathOperator{\append}{\text{«}}
 
 \title{A Family of Vertex Transitive Graphs}
@@ -36,15 +37,17 @@ s_{n + 1} &=& 1 + \prod_{i=0}^n s_n. \label{eq:sn}
 
 A mixed-base number system can be constructed from Sylvester's sequence as follows:
 \begin{definition}
-A {\em Sylvester-radix} number $a$ is a sequence of digits $a_n$ such that: $a_n \in \mathbb{Z} : 0 \le a_n < s_n$.
+A {\em Sylvester-radix} number $a$ is a sequence of digits such that: $a_i \in \mathbb{Z} : 0 \le a_i < s_i$.
 \end{definition}
+
+We denote the set of $n$-digit Sylvester-radix numbers as $\mathcal{S}_n$ and the set of all Sylvester-radix numbers as $\mathcal{S}$. 
 
 \begin{lemma}
 There are $(s_n - 1)$ Sylvester-radix numbers of length $n$.
 \end{lemma}
 
 \begin{proof}
-The Sylvester-radix numbers of length 1 are $(0)$ and $(1)$. $(s_1 - 1) = 2$ so the lemma holds for $n=1$.
+The Sylvester-radix numbers of length 1 are ${\langle}0\rangle$ and ${\langle}1\rangle$. $(s_1 - 1) = 2$ so the lemma holds for $n=1$.
 
 For $n > 1$, there are $s_i$ possible values for each digit, with $0 \le i < n$. The number of valid digit combinations is thus given by:
 \begin{equation*}
@@ -102,13 +105,13 @@ N_n &=& 1, 2, 6, 42, 1806, ...
 
 \subsubsection{Vertices}
 
-For the recursive case, it is necessary to distinguish between vertices in different nested subgraphs. Each vertex is labeled by a sequence of integers. For $G_n$ each subgraph is assigned an integer in $[0, N_{n-1}]$. For all vertices in a particular subgraph, labels are constructed by taking the corresponding label in $G_{n-1}$ and appending the subgraph's integer label. Formally:
+For the recursive case, it is necessary to distinguish between vertices in different nested subgraphs. Each vertex is labeled by a sequence of integers. For $G_n$ each subgraph is assigned an integer in $[0, N_n)$. For all vertices in a particular subgraph, labels are constructed by taking the corresponding label in $G_{n-1}$ and appending the subgraph's integer label. Formally:
 \begin{equation}
 V_n =
 \bigcup_{i = 0}^{N_{n-1}}
-\{ v \append i | v \in V_{n-1} \},
+\{ v \append i \mid v \in V_{n-1} \},
 \end{equation}
-where $a \append b$ denotes appending element $b$ to the end of sequence $a$. The vertices of $G_n$ are thus integer sequences of length $n$, with the $i$th digit in $[0, N_{n-1}]$. This set of labels is exactly the set of length-$n$ Sylvester-radix numbers.
+where $a \append e$ denotes appending element $e$ to the end of sequence $a$. The vertices of $G_n$ are thus integer sequences of length $n$, with the digit at index $i$ in $[0, N_i-1]$. This set of labels is exactly the set of length-$n$ Sylvester-radix numbers.
 
 \begin{theorem}
 The vertices of a nested clique $G_n$ having $V_0 = \{ \varnothing \}$ are isomorphic to length-$n$ Sylester-radix numbers.
@@ -119,7 +122,26 @@ TODO
 \end{proof}
 
 \subsubsection{Edges}
-It is not obvious whether any configuration of edges can satisfy Definition \ref{def:nk}. We now construct a set of operators which map source vertices to target vertices in a manner satisfying \ref{def:nk}.
+It is not obvious whether any configuration of edges can satisfy Definition \ref{def:nk}. We will construct these edges below. First, we define notation that will be needed for the construction.
+
+Let $\sigma_i$ be the cyclic permutation that increments an integer, modulo $s_i$:
+\begin{equation}
+\sigma_i x = (x + 1) \bmod s_i.
+\end{equation}
+
+We now define the $k$th order {\em skip operator} $S_k$. This operator on a Sylvester-radix number to permute digits 0 \ldots k. We use $\concat$ to denote the concatanetion operator for sequences.
+
+\begin{definition}\label{def:skip}
+\begin{eqnarray}
+S_0 v &=& \langle \sigma_0 v_0, v_1, v_2, \ldots \rangle \\
+z^\prime_i (v) &\equiv& z(S_{i-1} v_{0:i}) \\
+S_i v &=&
+S_{i-1} v_{0:i}
+\concat \langle v_i + 1 + z^\prime_i(v) \rangle
+\concat v_{i+1:n}.
+\end{eqnarray}
+\end{definition}
+
 
 \bibliographystyle{plain}
 \bibliography{paper}
